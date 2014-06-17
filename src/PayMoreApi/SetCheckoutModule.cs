@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using Nancy;
 using Nancy.Responses;
 
@@ -31,9 +32,24 @@ namespace PayMoreApi
                 return new RedirectResponse(redirectUrl, RedirectResponse.RedirectType.SeeOther);
             };
 
-            Get["/checkout/{checkoutid}"] = _ =>
+            Get["/checkout/{checkoutid}"] = parameters =>
             {
-                return View["Step", new CheckoutPageViewModel()];
+                dynamic model = new ExpandoObject();
+                model.SessionId = parameters.checkoutid;
+
+                return View["Step", model];
+
+            };
+
+            Post["/login"] = _ =>
+            {
+
+                dynamic model = new ExpandoObject();
+                model.Email = Request.Form.Email;
+                model.Password = Request.Form.Password;
+                model.SessionId = Request.Form.SessionId;
+
+                return View["Step2", model];
             };
         } 
     }
