@@ -41,9 +41,7 @@ namespace PayMoreApi
                     return HttpStatusCode.NotFound;
 
                 model.SessionId = sessionId;
-
                 
-
                 return View["Step", model];
 
             };
@@ -58,7 +56,28 @@ namespace PayMoreApi
                 model.Password = Request.Form.Password;
                 model.SessionId = Request.Form.SessionId;
 
-                return View["Step2", model];
+                if(model.Email == "test@test.com" && model.Password == "password")
+                    return View["Step2", model];
+
+                return View["Step", model];
+            };
+
+            Post["/confirm-payment"] = _ =>
+            {                
+                string sessionId = Request.Form["SessionId"];
+                using (var sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["PayMore"].ConnectionString))
+                {
+                    sqlConnection.Open();
+
+                    var returnUrl = sqlConnection.Query<string>("SELECT ReturnUrl FROM PendingTransaction WHERE SessionId = @SessionId", new {SessionId = Guid.Parse(sessionId)}).SingleOrDefault();
+
+                    sqlConnection.Close();
+
+                    return new RedirectResponse(returnUrl, RedirectResponse.RedirectType.SeeOther);
+
+
+                }
+                
             };
         }
 
