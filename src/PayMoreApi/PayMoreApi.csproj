@@ -40,10 +40,10 @@
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Nancy">
-      <HintPath>..\packages\Nancy.0.23.0\lib\net40\Nancy.dll</HintPath>
+      <HintPath>..\..\packages\Nancy.0.23.0\lib\net40\Nancy.dll</HintPath>
     </Reference>
     <Reference Include="Nancy.Hosting.Aspnet">
-      <HintPath>..\packages\Nancy.Hosting.Aspnet.0.23.0\lib\net40\Nancy.Hosting.Aspnet.dll</HintPath>
+      <HintPath>..\..\packages\Nancy.Hosting.Aspnet.0.23.0\lib\net40\Nancy.Hosting.Aspnet.dll</HintPath>
     </Reference>
     <Reference Include="Nancy.ViewEngines.Razor">
       <HintPath>..\packages\Nancy.Viewengines.Razor.0.23.0\lib\net40\Nancy.ViewEngines.Razor.dll</HintPath>
@@ -70,23 +70,41 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Properties\PublishProfiles\PayMore.pubxml" />
     <Content Include="static\css\bootstrap-theme.css" />
+    <Content Include="static\css\bootstrap-theme.css.map" />
     <Content Include="static\css\bootstrap-theme.min.css" />
     <Content Include="static\css\bootstrap.css" />
-    <Content Include="static\css\bootstrap.min.css" />
-    <Content Include="static\fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="static\js\bootstrap.js" />
-    <Content Include="static\js\bootstrap.min.js" />
-    <Content Include="Views\_Layout.cshtml" />
-    <Content Include="Views\Step.cshtml" />
-    <Content Include="static\css\bootstrap-theme.css.map" />
     <Content Include="static\css\bootstrap.css.map" />
+    <Content Include="static\css\bootstrap.min.css" />
+    <Content Include="static\css\main.css" />
     <Content Include="static\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="static\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="static\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="static\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="static\img\app-bg.png" />
+    <Content Include="static\img\arrow1.png" />
+    <Content Include="static\img\arrow2.png" />
+    <Content Include="static\img\intro01.png" />
+    <Content Include="static\img\intro02.png" />
+    <Content Include="static\img\intro03.png" />
+    <Content Include="static\img\item-01.png" />
+    <Content Include="static\img\item-02.png" />
+    <Content Include="static\img\mobile.png" />
+    <Content Include="static\js\bootstrap.js" />
+    <Content Include="static\js\bootstrap.min.js" />
+    <Content Include="static\js\jquery.min.js" />
+    <Content Include="static\js\smoothscroll.js" />
+    <Content Include="Views\_Layout.cshtml" />
+    <Content Include="Views\Step.cshtml" />
     <Content Include="Views\Step2.cshtml" />
+    <Content Include="Views\Index.cshtml" />
+    <Content Include="static\css\.DS_Store" />
+    <Content Include="static\img\.DS_Store" />
+    <Content Include="static\js\.DS_Store" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

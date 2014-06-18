@@ -41,6 +41,8 @@ namespace PayMoreApi
 
             };
 
+            Get["/"] = _ => View["Index"];
+
             Post["/login"] = _ =>
             {
 
