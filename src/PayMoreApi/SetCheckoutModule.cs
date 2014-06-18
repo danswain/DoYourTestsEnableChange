@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data.SqlClient;
 using System.Dynamic;
+using System.Linq;
+using Dapper;
 using Nancy;
 using Nancy.Responses;
 
 namespace PayMoreApi
 {
     public class SetCheckoutModule : NancyModule
-    {
-        static Dictionary<Guid,CheckoutParameters> _checkoutRequest = new Dictionary<Guid, CheckoutParameters>();
-
+    {        
         public SetCheckoutModule()
         {
             Get["/SetCheckout"] = parameters =>
@@ -20,14 +22,10 @@ namespace PayMoreApi
                 if (string.IsNullOrEmpty(returnUrl) || string.IsNullOrEmpty(cancelUrl))
                     return HttpStatusCode.BadRequest;
 
-                var requestKey = Guid.NewGuid();
-
-                _checkoutRequest.Add(requestKey, new CheckoutParameters
-                {
-                    ReturnUrl = returnUrl,
-                    CancelUrl = cancelUrl
-                });
-                var redirectUrl = string.Format("/checkout/{0}",requestKey);
+                var pendingTransactionId = CreatePendingTransaction(returnUrl,cancelUrl);
+                
+                
+                var redirectUrl = string.Format("/checkout/{0}",pendingTransactionId);
 
                 return new RedirectResponse(redirectUrl, RedirectResponse.RedirectType.SeeOther);
             };
@@ -35,7 +33,16 @@ namespace PayMoreApi
             Get["/checkout/{checkoutid}"] = parameters =>
             {
                 dynamic model = new ExpandoObject();
-                model.SessionId = parameters.checkoutid;
+                var checkoutId = parameters.checkoutid;
+                Guid sessionId = Guid.Empty;
+                Guid.TryParse(checkoutId, out sessionId);
+
+                if (sessionId == Guid.Empty)
+                    return HttpStatusCode.NotFound;
+
+                model.SessionId = sessionId;
+
+                
 
                 return View["Step", model];
 
@@ -53,7 +60,50 @@ namespace PayMoreApi
 
                 return View["Step2", model];
             };
-        } 
+        }
+
+        private Guid CreatePendingTransaction(string returnUrl, string cancelUrl)
+        {
+            var pendingTransactionSessionId = Guid.NewGuid();
+
+            using (var sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["PayMore"].ConnectionString))
+            {
+                sqlConnection.Open();
+
+                var pendingTransaction = new PendingTransaction
+                {
+                    SessionId = pendingTransactionSessionId,
+                    ProductName = "ProductName",
+                    Price = "100p",
+                    Quantity = "2",
+                    ReturnUrl = returnUrl,
+                    CancelUrl = cancelUrl
+                };
+
+                var inserted = sqlConnection.Query(
+                    @"
+                            insert PendingTransaction(SessionId, ProductName, Price,Quantity, ReturnUrl, CancelUrl)
+                            values (@SessionId, @ProductName, @Price, @Quantity, @ReturnUrl, @CancelUrl)
+                            select cast(scope_identity() as int)
+                        ", pendingTransaction).First();
+
+                sqlConnection.Close();
+
+                
+            }
+
+            return pendingTransactionSessionId;
+        }
+    }
+
+    public class PendingTransaction
+    {
+        public Guid SessionId { get; set; }
+        public string ProductName { get; set; }
+        public string Price { get; set; }
+        public string Quantity { get; set; }
+        public string ReturnUrl { get; set; }
+        public string CancelUrl { get; set; }
     }
 
     public class CheckoutParameters
