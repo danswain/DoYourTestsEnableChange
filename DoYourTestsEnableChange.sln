@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PayMoreApi", "src\PayMoreAp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoYourTestsEnableChange", "src\DoYourTestsEnableChange\DoYourTestsEnableChange.csproj", "{12B24241-9B80-48EB-B7D1-C292104F875F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PayMoreApi.Specs", "test\PayMoreApi.Specs\PayMoreApi.Specs.csproj", "{B0748A7E-3071-4D34-9E07-BD7D6F81A166}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{12B24241-9B80-48EB-B7D1-C292104F875F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{12B24241-9B80-48EB-B7D1-C292104F875F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{12B24241-9B80-48EB-B7D1-C292104F875F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0748A7E-3071-4D34-9E07-BD7D6F81A166}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0748A7E-3071-4D34-9E07-BD7D6F81A166}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0748A7E-3071-4D34-9E07-BD7D6F81A166}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0748A7E-3071-4D34-9E07-BD7D6F81A166}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
