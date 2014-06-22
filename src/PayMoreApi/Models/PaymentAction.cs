@@ -1,4 +1,4 @@
-﻿namespace PayMoreApi
+﻿namespace PayMoreApi.Models
 {
     public class PaymentAction
     {
