@@ -106,9 +106,6 @@
     <Content Include="Views\Step.cshtml" />
     <Content Include="Views\Step2.cshtml" />
     <Content Include="Views\Index.cshtml" />
-    <Content Include="static\css\.DS_Store" />
-    <Content Include="static\img\.DS_Store" />
-    <Content Include="static\js\.DS_Store" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
